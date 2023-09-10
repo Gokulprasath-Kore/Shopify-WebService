@@ -3,6 +3,7 @@ function retrievecustomeridqueryfunction(accessToken){
     {
       customer(customerAccessToken: "${accessToken}") {
         id
+        firstName
       }
     }
   `);

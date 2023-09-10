@@ -5,7 +5,7 @@ const retrievecustomeridqueryfunction = require("../graphql/RetrieveCustomerIdQu
 const logincontroller = async (req, res) => {
   const { email, password } = req.body;
   global.customerId = null;
-
+  global.firstName = null;
   try {
     const customerLoginMutationFunction = customerLoginMutation();
     const loginResponse = await axios.post(
@@ -36,7 +36,6 @@ const logincontroller = async (req, res) => {
       const getCustomerID = async () => {
         try {
           const query = retrievecustomeridqueryfunction(accessToken);
-
           const response = await axios.post(
             `https://${req.domain}/api/2023-04/graphql.json`,
             {
@@ -48,9 +47,10 @@ const logincontroller = async (req, res) => {
               },
             }
           );
-
+          
           global.customerId = response.data.data.customer.id;
-          console.log(`Customer ID: ${global.customerId}`);
+          global.firstName = response.data.data.customer.firstName;
+          
         } catch (error) {
           console.error('Error retrieving customer ID:', error.message);
         }
@@ -60,7 +60,8 @@ const logincontroller = async (req, res) => {
       await getCustomerID();
 
       const cid = global.customerId;
-      res.status(200).json({ cid, accessToken, expiresAt });
+      const fn = global.firstName;
+      res.status(200).json({ cid,fn, accessToken, expiresAt });
     } else {
       res.status(500).json({ error: 'Unknown error occurred during login' });
     }
