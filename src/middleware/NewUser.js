@@ -1,7 +1,7 @@
 function newuser(req,res,next){
     const domain = req.header('domain');
     const adminApiAccessToken = req.header('adminApiAccessToken');
-    const apiKey = req.header('apikey')
+    const apiKey = req.header('apikey');
     if(domain!="" && adminApiAccessToken!="" && apiKey!="")
     {
         req.domain = domain;

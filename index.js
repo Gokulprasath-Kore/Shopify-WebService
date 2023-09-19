@@ -16,6 +16,8 @@ const guestvieworderroute = require("./src/routes/GuestViewOrder");
 const guestcancelorderroute = require("./src/routes/GuestCancelOrder");
 const signuproute = require("./src/routes/Signup");
 const loginroute = require("./src/routes/Login");
+const orderhistoryroute = require("./src/routes/OrderHistory");
+
 
 app.get("/",(req,res)=>{
     res.send("Shopify");
@@ -36,6 +38,8 @@ app.use("/guestcancelorder",guestcancelorderroute);
 app.use("/signup",signuproute);
 
 app.use("/login",loginroute);
+
+app.use("/orderhistory",orderhistoryroute);
 
 app.listen(port,()=>{
     console.log(`Listening to ${port}`);
